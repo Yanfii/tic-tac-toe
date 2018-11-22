@@ -12,10 +12,9 @@ class App extends Component {
     }
   }
 
-  handleClick(position) {
-    console.log(position)
+  handleClick = (position) => {
     if(this.state.player && !this.state.winner) {
-      let tempBoard = this.state.board
+      var tempBoard = this.state.board
       if (!this.state.board[position]) {
         tempBoard[position] = this.state.player
         this.setState({
@@ -24,10 +23,42 @@ class App extends Component {
         })
       }
       //check winner here
+      this.findWinner()
     }
   }
 
-  renderBoxes() {
+  reset = () => {
+    this.setState({
+      board: Array(9).fill(null),
+      player: 1,
+      winner: null
+    })
+  }
+
+  findWinner = () => {
+    var winning = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]]
+    for(var i = 0; i < winning.length; i++) {
+      row = winning[i]
+      var row = winning[i]
+      var board = this.state.board
+      if (board[row[0]] && board[row[0]] === board[row[1]] &&
+         board[row[1]] === board[row[2]]) {
+           this.setState({
+             winner: board[row[0]]
+           })
+         }
+    }
+  }
+
+  renderBoxes = () => {
     return this.state.board.map((square, index) =>
       <div
        className="square"
@@ -40,6 +71,8 @@ class App extends Component {
     return (
       <div className="App">
       <h1>Tic Tac Toe</h1>
+        {this.state.winner && <h1>Winner is {this.state.winner}</h1>}
+        <button onClick={() => this.reset()}> Reset </button>
         <div className="board">
           {this.renderBoxes()}
         </div>
