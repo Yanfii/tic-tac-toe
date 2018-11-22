@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import donut from './donut.svg';
+import cinnamon from './cinnamon_sticks.svg'
 import './App.css';
 
 class App extends Component {
@@ -63,7 +65,7 @@ class App extends Component {
       <div
        className="square"
        onClick={() => this.handleClick(index)}>
-         {square}
+         {square && <img src={square === 1? donut : cinnamon}/>}
       </div>)
   }
 
