@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       board: Array(9).fill(null),
-      player: 1,
+      player: "Donuts",
       winner: null
     }
   }
@@ -21,7 +21,7 @@ class App extends Component {
         tempBoard[position] = this.state.player
         this.setState({
           board: tempBoard,
-          player: this.state.player === 1 ? 2 : 1
+          player: this.state.player === "Donuts" ? "Cinnamon" : "Donuts"
         })
       }
       //check winner here
@@ -32,7 +32,7 @@ class App extends Component {
   reset = () => {
     this.setState({
       board: Array(9).fill(null),
-      player: 1,
+      player: "Donuts",
       winner: null
     })
   }
@@ -65,7 +65,7 @@ class App extends Component {
       <div
        className="square"
        onClick={() => this.handleClick(index)}>
-         {square && <img src={square === 1? donut : cinnamon}/>}
+         {square && <img src={square === "Donuts"? donut : cinnamon}/>}
       </div>)
   }
 
