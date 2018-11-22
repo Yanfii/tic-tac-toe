@@ -7,22 +7,41 @@ class App extends Component {
     super(props);
     this.state = {
       board: Array(9).fill(null),
-      player: null,
+      player: 1,
       winner: null
     }
   }
 
-  handleClick = (position) => {
-    console.log("clicked in position ", position)
+  handleClick(position) {
+    console.log(position)
+    if(this.state.player && !this.state.winner) {
+      let tempBoard = this.state.board
+      if (!this.state.board[position]) {
+        tempBoard[position] = this.state.player
+        this.setState({
+          board: tempBoard,
+          player: this.state.player === 1 ? 2 : 1
+        })
+      }
+      //check winner here
+    }
+  }
+
+  renderBoxes() {
+    return this.state.board.map((square, index) =>
+      <div
+       className="square"
+       onClick={() => this.handleClick(index)}>
+         {square}
+      </div>)
   }
 
   render() {
-    const squares = this.state.board.map(square => <div className="square" onClick={this.handleClick}>{square}</div>)
     return (
       <div className="App">
       <h1>Tic Tac Toe</h1>
         <div className="board">
-          {squares}
+          {this.renderBoxes()}
         </div>
       </div>
     );
